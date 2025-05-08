@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Input Data</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 16px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    select, input[type="date"], input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .field-container {
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .input-error {
+      border: 1px solid #e74c3c !important;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    /* Style untuk pesan sukses */
+    .success-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(46, 204, 113, 0.9);
+      color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: none;
+      text-align: center;
+    }
+
+    @media screen and (min-width: 768px) {
+      body {
+        padding: 24px;
+      }
+      
+      button {
+        width: auto;
+        padding: 10px 30px;
+        margin: 20px auto 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Check Sheet CM512</h2>
+
+    <form id="inputForm">
+      <div class="field-container">
+        <label for="warna">Warna:</label>
+        <select name="warna" id="warna" required>
+          <option value="">--Pilih--</option>
+          <option value="W09">W09</option>
+          <option value="1G3">1G3</option>
+          <option value="S28">S28</option>
+          <option value="R71">R71</option>
+          <option value="4T3">4T3</option>
+          <option value="3Q3">3Q3</option>
+          <option value="X12">X12</option>
+          <option value="1E7">1E7</option>
+        </select>
+      </div>
+
+      <!-- Tanggal -->
+      <div class="field-container">
+        <label for="tanggal">Tanggal:</label>
+        <input type="date" name="tanggal" id="tanggal" required>
+      </div>
+
+      <!-- Delta -->
+      <div class="field-container">
+        <label for="delta">Delta:</label>
+        <select name="delta" id="delta" required>
+          <option value="">--Pilih--</option>
+          <option value="L">L</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+        </select>
+      </div>
+
+      <!-- Sudut -->
+      <div class="field-container">
+        <label for="sudut">Sudut:</label>
+        <select name="sudut" id="sudut" required>
+          <option value="">--Pilih--</option>
+          <option value="25">25°</option>
+          <option value="45">45°</option>
+          <option value="75">75°</option>
+        </select>
+      </div>
+
+      <!-- Tabel input -->
+      <table>
+        <thead>
+          <tr>
+            <th>Posisi</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>FR</td>
+            <td>
+              <input type="text" name="FR_input" class="numeric-input" required>
+              <div class="error-message">Hanya boleh diisi angka, titik (.), koma (,), dan tanda minus (-)</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>FL</td>
+            <td>
+              <input type="text" name="FL_input" class="numeric-input" required>
+              <div class="error-message">Hanya boleh diisi angka, titik (.), koma (,), dan tanda minus (-)</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>RR</td>
+            <td>
+              <input type="text" name="RR_input" class="numeric-input" required>
+              <div class="error-message">Hanya boleh diisi angka, titik (.), koma (,), dan tanda minus (-)</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>RL</td>
+            <td>
+              <input type="text" name="RL_input" class="numeric-input" required>
+              <div class="error-message">Hanya boleh diisi angka, titik (.), koma (,), dan tanda minus (-)</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Pesan sukses -->
+  <div id="successMessage" class="success-message">
+    Data berhasil terinput!
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('inputForm');
+      const numericInputs = document.querySelectorAll('.numeric-input');
+      const successMessage = document.getElementById('successMessage');
+      
+      // Fungsi untuk validasi input numerik
+      function validateNumericInput(input) {
+        const value = input.value;
+        const regex = /^[-0-9.,]*$/; // Hanya angka, titik, koma, dan minus
+        
+        const errorMessage = input.parentNode.querySelector('.error-message');
+        
+        if (!regex.test(value)) {
+          input.classList.add('input-error');
+          if (errorMessage) errorMessage.style.display = 'block';
+          return false;
+        } else {
+          input.classList.remove('input-error');
+          if (errorMessage) errorMessage.style.display = 'none';
+          return true;
+        }
+      }
+      
+      // Tambahkan event listener untuk semua input numerik
+      numericInputs.forEach(input => {
+        input.addEventListener('input', function() {
+          validateNumericInput(this);
+        });
+        
+        // Validasi saat blur (keluar dari input)
+        input.addEventListener('blur', function() {
+          validateNumericInput(this);
+        });
+        
+        // Filter input langsung saat mengetik
+        input.addEventListener('keypress', function(event) {
+          const allowedChars = /[0-9.,\-]/;
+          if (!allowedChars.test(event.key)) {
+            event.preventDefault();
+          }
+          
+          // Hindari multiple tanda minus
+          if (event.key === '-' && this.value.includes('-')) {
+            event.preventDefault();
+          }
+        });
+      });
+      
+      // Fungsi untuk menampilkan pesan sukses dan refresh halaman
+      function showSuccessAndRefresh() {
+        successMessage.style.display = 'block';
+        
+        // Setelah 2 detik, refresh halaman
+        setTimeout(function() {
+          window.location.reload();
+        }, 2000);
+      }
+      
+      // Validasi form saat submit
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        let isValid = true;
+        
+        // Validasi semua input numerik
+        numericInputs.forEach(input => {
+          if (!validateNumericInput(input)) {
+            isValid = false;
+          }
+        });
+        
+        if (isValid) {
+          const data = {
+            tanggal: form.tanggal.value,
+            delta: form.delta.value,
+            sudut: form.sudut.value,
+            FR_input: form.FR_input.value,
+            FL_input: form.FL_input.value,
+            RR_input: form.RR_input.value,
+            RL_input: form.RL_input.value
+          };
+
+          // Opsi 1: Menggunakan Google Script
+          /*
+          fetch("https://script.google.com/macros/s/AKfycbzdPbY_HSzIcihyuXi3suH-N8RxGncgxlvinOxRop7hWJQxCDq20bl0Q6Ulnev3Rna2/exec", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "Content-Type": "application/json" }
+          })
+          .then(response => response.text())
+          .then(result => {
+            showSuccessAndRefresh();
+          })
+          .catch(err => {
+            alert("Gagal: " + err);
+          });
+          */
+          
+          // Opsi 2: Simulasi pengiriman (untuk testing)
+          // Dalam implementasi sebenarnya, gunakan fetch di atas
+          setTimeout(() => {
+            showSuccessAndRefresh();
+          }, 500);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
