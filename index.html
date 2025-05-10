@@ -120,6 +120,37 @@
       text-align: center;
     }
 
+    /* Style untuk loading spinner */
+    .loading-spinner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: none;
+      text-align: center;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 2s linear infinite;
+      margin: 0 auto 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     @media screen and (min-width: 768px) {
       body {
         padding: 24px;
@@ -233,11 +264,21 @@
     Data berhasil terinput!
   </div>
 
+  <!-- Loading spinner -->
+  <div id="loadingSpinner" class="loading-spinner">
+    <div class="spinner"></div>
+    <div>Mengirim data...</div>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const form = document.getElementById('inputForm');
       const numericInputs = document.querySelectorAll('.numeric-input');
       const successMessage = document.getElementById('successMessage');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      
+      // Set default tanggal hari ini
+      document.getElementById('tanggal').valueAsDate = new Date();
       
       // Fungsi untuk validasi input numerik
       function validateNumericInput(input) {
@@ -284,6 +325,7 @@
       
       // Fungsi untuk menampilkan pesan sukses dan refresh halaman
       function showSuccessAndRefresh() {
+        loadingSpinner.style.display = 'none';
         successMessage.style.display = 'block';
         
         // Setelah 2 detik, refresh halaman
@@ -306,7 +348,11 @@
         });
         
         if (isValid) {
+          // Tampilkan loading spinner
+          loadingSpinner.style.display = 'block';
+          
           const data = {
+            warna: form.warna.value,
             tanggal: form.tanggal.value,
             delta: form.delta.value,
             sudut: form.sudut.value,
@@ -316,9 +362,8 @@
             RL_input: form.RL_input.value
           };
 
-          // Opsi 1: Menggunakan Google Script
-          /*
-          fetch("https://script.google.com/macros/s/AKfycby0rso4Lc4cIEK8bdpVvkNY-R-2z5pxyg8XECn84pPjwVt9N8JxmQvS6m5GVdQ3D7R3/exec", {
+          // Kirim data ke Google Script
+          fetch("https://script.google.com/macros/s/AKfycbxlKh2HFczRPdrbqeN9o2dnnYs6HyNzdKcn98ItzhTpyvMBTutG6XC_R0xfG_nL1uVz/execDA", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }
@@ -328,15 +373,16 @@
             showSuccessAndRefresh();
           })
           .catch(err => {
+            loadingSpinner.style.display = 'none';
             alert("Gagal: " + err);
           });
-          */
           
-          // Opsi 2: Simulasi pengiriman (untuk testing)
-          // Dalam implementasi sebenarnya, gunakan fetch di atas
+          // Opsi untuk testing (nonaktifkan saat menggunakan fetch di atas)
+          /*
           setTimeout(() => {
             showSuccessAndRefresh();
           }, 500);
+          */
         }
       });
     });
